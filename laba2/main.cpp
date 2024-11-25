@@ -2,7 +2,7 @@
 //  main.cpp
 //  Лаба 2 Деревья
 //
-//  Created by Егор on 23.11.2024.
+//  Created by Егор on 9.11.2024.
 //
 
 #include <iostream>
