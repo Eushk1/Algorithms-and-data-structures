@@ -147,14 +147,14 @@ void handleSendXYZaAngle() {
         server.send(200, "text/plain", response);
         Serial.println("x, y, z, angle arguments received: "+response); 
     } else {
-        Serial.println("No x, y, z, angle arguments received"); // Для отладки
+        Serial.println("No x, y, z, angle arguments received");
         server.send(400, "text/plain", "No message");
     }
 }
 
 
 void handleSendXYZ() {
-    Serial.println("handleSendXYZ called"); // Для отладки
+    Serial.println("handleSendXYZ called"); 
     if (server.hasArg("x") && server.hasArg("y") && server.hasArg("z")) {
         float x = server.arg("x").toFloat();
         float y = server.arg("y").toFloat();
@@ -167,7 +167,7 @@ void handleSendXYZ() {
         Serial.print("Received z: ");
         Serial.println(z);
 
-        
+
         Manipulator manipulator;
 
         String response = "Message sent: x=" + String(x) + ", y=" + String(y) + ", z=" + String(z);
@@ -203,7 +203,7 @@ void handleSendXYZ() {
         server.send(200, "text/plain", response);
         Serial.println("x, y, z arguments received: "+response); 
     } else {
-        Serial.println("No x, y, z arguments received"); // Для отладки
+        Serial.println("No x, y, z arguments received"); 
         server.send(400, "text/plain", "No message");
     }
 }
@@ -221,17 +221,15 @@ void handleSendArmAngle() {
 }
 
 void setup() {
-    Serial.begin(115200);
-
+    Serial.begin(115200); 
 
     WiFi.softAP(ssid, password);
     Serial.println("Access Point created");
 
-
     Serial.print("IP Address: ");
     Serial.println(WiFi.softAPIP());
 
-
+    // Настройка обработчиков
     server.on("/", []() {
         server.send(200, "text/html", html);
     });
@@ -249,13 +247,20 @@ void setup() {
     servo4.attach(pin4);
     servo5.attach(pin5);
 
+    servo1.write(90);
+    servo2.write(90);
+    servo3.write(45);
+    servo4.write(135);
+    servo5.write(75);
+
 }
 
 void loop() {
-   server.handleClient(); // Обработка входящих клиентов
-   servo1.write((90+Angles.polarangle));
+   server.handleClient(); 
+
+   servo1.write(90+Angles.polarangle);
    servo2.write(180-Angles.angle1);
-   servo3.write(135+Angles.angle2);
-   servo4.write(Angles.gridangle);
-   servo5.write(135+Angles.angle3);
+   servo3.write(45-Angles.angle2);
+   servo4.write(180-(45+Angles.gridangle);
+   servo5.write(75-Angles.angle3);
 }
