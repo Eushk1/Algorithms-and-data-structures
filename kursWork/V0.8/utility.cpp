@@ -1,7 +1,7 @@
 #include <utility.h>
 
 bool check_angles(float theta1, float theta2, float theta3, float theta_polar) {
-  // Check if all angles are within their respective ranges
+
   if (0 <= theta1 && theta1 <= 180 &&
       -135 <= theta2 && theta2 <= 45 &&
       -105 <= theta3 && theta3 <= 75 &&
@@ -27,7 +27,7 @@ Point3D calculate_position(float theta1, float theta2, float theta3, float theta
   double x_prime = L1 * cos(theta1) + L2 * cos(theta1 + theta2) + L3 * cos(theta1 + theta2 + theta3);
   double z_prime = L1 * sin(theta1) + L2 * sin(theta1 + theta2) + L3 * sin(theta1 + theta2 + theta3);
   
-  // Project onto the main planes
+
   double x = x_prime * cos(theta_polar);
   double y = x_prime * sin(theta_polar);
   double z = z_prime;
