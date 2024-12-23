@@ -39,7 +39,7 @@ ManipulatorState Gcode_command_G1(float x, float y, float z, float GridAngle) {
     Serial.println(manipulatorstate_temp.angle3);
 
 
-    manipulatorstate_temp.angle3 = -(180 -  (manipulatorstate_temp.angle3 * (180.0 / M_PI))-(180-(direct_line_angle * (180.0 / M_PI))-GridAngle));
+    manipulatorstate_temp.angle3 = -(180 -  (manipulatorstate_temp.angle3 * (180.0 / M_PI))-(180-(direct_line_angle * (180.0 / M_PI))+GridAngle));
     manipulatorstate_temp.angle1 = (manipulatorstate_temp.angle1 * (180.0 / M_PI)) + (direct_line_angle * (180.0 / M_PI));
     manipulatorstate_temp.angle2 = -(180-manipulatorstate_temp.angle2 * (180.0 / M_PI));
 
