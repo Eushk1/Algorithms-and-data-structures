@@ -25,13 +25,12 @@ const int pin5 = 35;
 
 
 
-// Замените на ваши Wi-Fi данные
-const char* ssid = "ESP32_AP"; // Имя точки доступа
-const char* password = "00000000"; // Пароль точки доступа
+const char* ssid = "ESP32_AP";
+const char* password = "00000000";
 
-WebServer server(80); // Создание веб-сервера на порту 80
+WebServer server(80); 
 
-// HTML код для веб-страницы
+
 const char* html = R"rawliteral(
 <!DOCTYPE html>
 <html>
@@ -99,9 +98,9 @@ const char* html = R"rawliteral(
 </html>
 )rawliteral";
 
-// Обработчик для отправки x, y, z и угла
+
 void handleSendXYZaAngle() {
-    Serial.println("handleSendXYZaAngle called"); // Для отладки
+    Serial.println("handleSendXYZaAngle called");
     if (server.hasArg("x") && server.hasArg("y") && server.hasArg("z") && server.hasArg("angle")) {
         float x = server.arg("x").toFloat();
         float y = server.arg("y").toFloat();
@@ -150,9 +149,9 @@ void handleSendXYZaAngle() {
         Serial.println("No x, y, z, angle arguments received"); // Для отладки
         server.send(400, "text/plain", "No message");
     }
-}
 
-// Обработчик для отправки x, y, z
+
+
 void handleSendXYZ() {
     Serial.println("handleSendXYZ called"); // Для отладки
     if (server.hasArg("x") && server.hasArg("y") && server.hasArg("z")) {
@@ -167,7 +166,7 @@ void handleSendXYZ() {
         Serial.print("Received z: ");
         Serial.println(z);
 
-        // Вызов функции Gcode_command_G1 без угла
+        
         Manipulator manipulator;
 
         String response = "Message sent: x=" + String(x) + ", y=" + String(y) + ", z=" + String(z);
@@ -207,7 +206,6 @@ void handleSendXYZ() {
         server.send(400, "text/plain", "No message");
     }
 }
-// Обработчик для отправки угла руки
 void handleSendArmAngle() {
     if (server.hasArg("value")) {
         float angle = server.arg("value").toFloat();
@@ -221,17 +219,15 @@ void handleSendArmAngle() {
 }
 
 void setup() {
-    Serial.begin(115200); // Установите скорость 115200 для лучшей читаемости
-
-    // Создание точки доступа
+    Serial.begin(115200); 
     WiFi.softAP(ssid, password);
     Serial.println("Access Point created");
 
-    // Печать IP-адреса точки доступа
+    
     Serial.print("IP Address: ");
     Serial.println(WiFi.softAPIP());
 
-    // Настройка обработчиков
+
     server.on("/", []() {
         server.send(200, "text/html", html);
     });
@@ -252,7 +248,7 @@ void setup() {
 }
 
 void loop() {
-   server.handleClient(); // Обработка входящих клиентов
+   server.handleClient(); 
    servo1.write((90+Angles.polarangle));
    servo2.write(180-Angles.angle1);
    servo3.write(135+Angles.angle2);
