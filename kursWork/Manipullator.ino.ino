@@ -124,7 +124,7 @@ void handleSendXYZaAngle() {
 
         ManipulatorState Angles_temp;
 
-        if(!isPointInRegion1(Points,135)){
+        if(isPointInRegion1(Points,135)){
            Angles_temp = Gcode_command_G1(x, y, z, angle);
            if(check_angles(Angles_temp.angle1,Angles_temp.angle2,Angles_temp.angle3,Angles_temp.polarangle)){
               Angles=Angles_temp;
