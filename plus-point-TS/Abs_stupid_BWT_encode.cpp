@@ -13,6 +13,35 @@
 using byte = unsigned char;
 
 
+
+
+bool cyclic_compare(const std::vector<byte>& input, size_t i, size_t j, size_t n) {
+    for (size_t k = 0; k < n; ++k) {
+        byte a = input[(i + k) % n];
+        byte b = input[(j + k) % n];
+        if (a != b)
+            return a < b;
+    }
+    return false;
+}
+
+void cyclic_sort(std::vector<size_t>& indices, const std::vector<byte>& input) {
+    size_t n = input.size();
+    size_t m = indices.size();
+
+    for (size_t i = 1; i < m; ++i) {
+        size_t key = indices[i];
+        size_t j = i - 1;
+
+        while (j >= 0 && cyclic_compare(input, indices[j], key, n)) {
+            indices[j + 1] = indices[j];
+            if (j == 0) break;
+            j--;
+        }
+        indices[j + 1] = key;
+    }
+}
+
 std::pair<std::vector<byte>, size_t> bwt_encode(const std::vector<byte>& input) {
     size_t n = input.size();
     if (n == 0)
@@ -21,17 +50,7 @@ std::pair<std::vector<byte>, size_t> bwt_encode(const std::vector<byte>& input) 
     std::vector<size_t> indices(n);
     std::iota(indices.begin(), indices.end(), 0);
 
-    auto compare = [&](size_t i, size_t j) {
-        for (size_t k = 0; k < n; ++k) {
-            byte a = input[(i + k) % n];
-            byte b = input[(j + k) % n];
-            if (a != b)
-                return a < b;
-        }
-        return false;
-    };
-
-    std::sort(indices.begin(), indices.end(), compare);
+    cyclic_sort(indices, input);
 
     std::vector<byte> encoded(n);
     size_t originalIndex = 0;
