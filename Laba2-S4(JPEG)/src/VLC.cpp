@@ -6,7 +6,7 @@
 //
 
 #include "VLC.hpp"
-#include "Huffman/HuffmanTables.hpp"
+#include "HuffmanTables.hpp"
 
 void encodeVLC(int value, bool isDC, bool isLuma, BitWriter& writer) {
     int size = (value == 0) ? 0 : (int)std::log2(abs(value)) + 1;
