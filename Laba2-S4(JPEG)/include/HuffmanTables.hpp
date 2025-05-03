@@ -11,8 +11,9 @@
 #include <vector>
 #include <unordered_map>
 
+namespace JPEGHuffmanTables {
 // DC-люминесценция (Таблица K.3)
-const std::unordered_map<int, std::pair<uint8_t, uint16_t>> JPEGHuffmanTables::DC_LUM = {
+const std::unordered_map<int, std::pair<uint8_t, uint16_t>> DC_LUM = {
     {0,  {2, 0b00}},        // Категория 0
     {1,  {3, 0b010}},       // Категория 1
     {2,  {3, 0b011}},
@@ -28,7 +29,7 @@ const std::unordered_map<int, std::pair<uint8_t, uint16_t>> JPEGHuffmanTables::D
 };
 
 // DC-хроматичность (Таблица K.4)
-const std::unordered_map<int, std::pair<uint8_t, uint16_t>> JPEGHuffmanTables::DC_CHR = {
+const std::unordered_map<int, std::pair<uint8_t, uint16_t>> DC_CHR = {
     {0,  {2, 0b00}},
     {1,  {2, 0b01}},
     {2,  {2, 0b10}},
@@ -44,7 +45,7 @@ const std::unordered_map<int, std::pair<uint8_t, uint16_t>> JPEGHuffmanTables::D
 };
 
 // AC-люминесценция (Таблица K.5)
-const std::unordered_map<std::pair<uint8_t, uint8_t>, std::pair<uint8_t, uint16_t>> JPEGHuffmanTables::AC_LUM = {
+const std::unordered_map<std::pair<uint8_t, uint8_t>, std::pair<uint8_t, uint16_t>> AC_LUM = {
     {{0,1},  {4, 0b0000}},    // Run=0, Size=1
     {{0,2},  {5, 0b00010}},
     {{0,3},  {6, 0b000110}},
@@ -191,7 +192,7 @@ const std::unordered_map<std::pair<uint8_t, uint8_t>, std::pair<uint8_t, uint16_
 };
 
 // AC-хроматичность (Таблица K.6)
-const std::unordered_map<std::pair<uint8_t, uint8_t>, std::pair<uint8_t, uint16_t>> JPEGHuffmanTables::AC_CHR = {
+const std::unordered_map<std::pair<uint8_t, uint8_t>, std::pair<uint8_t, uint16_t>> AC_CHR = {
     {{0,1},  {2, 0b00}},
     {{0,2},  {3, 0b010}},
     {{0,3},  {4, 0b0110}},
@@ -337,4 +338,5 @@ const std::unordered_map<std::pair<uint8_t, uint8_t>, std::pair<uint8_t, uint16_
     {{16,0}, {10, 0b1111111010}}  // EOB
 };
 
+}
 #endif /* HuffmanTables_hpp */
